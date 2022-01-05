@@ -1,4 +1,5 @@
 from torch.nn import *
+from torch.utils.tensorboard import SummaryWriter
 import torch
 
 
@@ -24,3 +25,10 @@ class MyNetwork(Module):
     def forward(self, x):
         x = self.module(x)
         return x
+
+if __name__=="__main__":
+    model = MyNetwork()
+    input = torch.rand([1, 3, 64,64])
+    writer = SummaryWriter(".\\MyNetworkStruct")
+    writer.add_graph(model=model, input_to_model=input)
+    writer.close()
