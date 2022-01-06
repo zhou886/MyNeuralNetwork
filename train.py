@@ -21,12 +21,15 @@ train_set = MyDataset(r'.\dataset', train=True, transform=torchvision.transforms
 test_set_size = len(test_set)
 train_set_size = len(train_set)
 
-learning_rate = 0.0001
-batch_size = 0
+learning_rate = 0
+batch_size = 256
 
 for i in range(10):
-    batch_size+=32
-    
+    if i == 0:
+        learning_rate = 0.0001
+    else:
+        learning_rate += 0.0002
+
     # 创建神经网络
     myNetwork = MyNetwork()
 
@@ -53,7 +56,7 @@ for i in range(10):
     total_test_step = 0
 
     # 设置epoch
-    epoch = 300
+    epoch = 200
 
     # 使用tensoboard查看训练变化过程
     writer = SummaryWriter("logs_SGD_lr{}_batchsize{}".format(learning_rate, batch_size))
